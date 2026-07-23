@@ -48,7 +48,7 @@ Proteção Solar, Mist, Tratamentos, Corpo & Banho, Cabelo, Perfumaria, Aparelho
 
 ## Pendências / próximos passos
 
-- [ ] Substituir o número de WhatsApp placeholder em `index.html` (procure por `wa.me/5500000000000`)
+- [x] Substituir o número de WhatsApp placeholder em `index.html`
 - [ ] Adicionar `img/logo.png` com a logo oficial (o header atual usa texto estilizado)
 - [ ] Pesquisar e adicionar as imagens dos produtos (ver `imagens.html`)
 - [ ] Confirmar preços/disponibilidade por produto (hoje o catálogo não exibe preço)
