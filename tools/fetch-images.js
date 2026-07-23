@@ -40,6 +40,8 @@ function tokens(s) {
     .replace(/[^a-z0-9.]+/g, " ")
     .split(/\s+/)
     .filter((t) => t && !STOP.has(t))
+    .filter((t) => !/^\d+(\.\d+)?(ml|g|kg|oz|ea|un)$/.test(t)) // ignora tamanhos (35ml, 20g)
+    .filter((t) => !/^\d\.\d$/.test(t)) // ignora versões &honey (1.0, 2.0…)
     .map((t) => PLURAL[t] || t);
 }
 
@@ -54,17 +56,33 @@ const TYPES = ["pads", "pad", "mask", "toner", "serum", "cream", "cleanser", "oi
   "mist", "stick", "ampoule", "essence", "shot", "spray", "wash", "gel", "foam", "lotion",
   "sunscreen", "patch", "powder", "shampoo", "conditioner", "treatment"];
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function fetchJson(url) {
+  for (let tent = 1; tent <= 4; tent++) {
+    const res = await fetch(url, { headers: { "user-agent": "Mozilla/5.0" } });
+    if (res.status === 429) { await sleep(8000 * tent); continue; }
+    if (!res.ok) throw new Error(`HTTP ${res.status} em ${url}`);
+    return res.json();
+  }
+  throw new Error(`rate limit persistente em ${url}`);
+}
+
 async function fetchAll(domain) {
+  // cache local do catálogo para não repetir o download a cada marca
+  const cacheFile = path.join(require("os").tmpdir(), `shopify-cache-${domain}.json`);
+  if (fs.existsSync(cacheFile) && Date.now() - fs.statSync(cacheFile).mtimeMs < 6 * 3600e3) {
+    return JSON.parse(fs.readFileSync(cacheFile, "utf8"));
+  }
   const all = [];
   for (let page = 1; page <= 20; page++) {
-    const url = `https://${domain}/products.json?limit=250&page=${page}`;
-    const res = await fetch(url, { headers: { "user-agent": "Mozilla/5.0" } });
-    if (!res.ok) throw new Error(`HTTP ${res.status} em ${url}`);
-    const j = await res.json();
+    const j = await fetchJson(`https://${domain}/products.json?limit=250&page=${page}`);
     if (!j.products || !j.products.length) break;
     all.push(...j.products);
+    await sleep(700);
     if (j.products.length < 250) break;
   }
+  fs.writeFileSync(cacheFile, JSON.stringify(all));
   return all;
 }
 
@@ -78,6 +96,15 @@ function scoreMatch(ourTokens, title) {
   return { coverage, extra, tt };
 }
 
+// Normalização para checar se um produto do revendedor é da marca certa
+function normFlat(s) {
+  return (s || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "");
+}
+
 async function main() {
   const ours = PRODUCTS.filter((p) => p[0] === BRAND);
   console.log(`${BRAND}: ${ours.length} produtos na lista; buscando ${DOMAIN}...`);
@@ -86,6 +113,7 @@ async function main() {
 
   const badRe = new RegExp(`\\b(${BAD.join("|")})\\b`, "i");
   const report = { matched: [], unmatched: [] };
+  const brandFlat = normFlat(BRAND);
 
   for (const p of ours) {
     const name = p[3];
@@ -95,6 +123,9 @@ async function main() {
     let best = null;
     for (const sp of shop) {
       if (!sp.images || !sp.images.length) continue;
+      // em loja multimarcas, só aceita produto da marca certa (vendor ou título)
+      if (brandFlat && !normFlat(sp.vendor).includes(brandFlat) &&
+          !normFlat(sp.title).includes(brandFlat)) continue;
       const s = scoreMatch(plain, sp.title);
       const isBad = badRe.test(sp.title) && !badRe.test(name);
       // exige que a grande maioria dos tokens do nosso nome esteja no título

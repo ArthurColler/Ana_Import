@@ -1,0 +1,70 @@
+{
+  "matched": [
+    {
+      "name": "Premium Repair Conditioner",
+      "title": "Camellia Tsubaki Premium Intensive Repair Conditioner 490Ml",
+      "slug": "tsubaki-premium-repair-conditioner",
+      "img": "https://cdn.shopify.com/s/files/1/0512/5429/6766/files/Tsubaki-Premium-Ex-Intensive-Repair-Conditioner-490Ml-Tsubaki-4550516474155-0.jpg?v=1722585251"
+    },
+    {
+      "name": "Premium Repair Hair Mask",
+      "title": "Shiseido Tsubaki Premium 180g Hair Repair Mask for Damaged Hair",
+      "slug": "tsubaki-premium-repair-hair-mask",
+      "img": "https://cdn.shopify.com/s/files/1/0512/5429/6766/files/Screenshot_2025-06-04_150625.webp?v=1752827657"
+    },
+    {
+      "name": "Premium Treatment Water",
+      "title": "Camellia Tsubaki Premium Hair Treatment Water Refill 200Ml",
+      "slug": "tsubaki-premium-treatment-water",
+      "img": "https://cdn.shopify.com/s/files/1/0512/5429/6766/files/Tsubaki-Premium-Treatment-Water-Refill-200Ml-4550516483799-0.jpg?v=1757043243",
+      "viaGift": true
+    }
+  ],
+  "unmatched": [
+    {
+      "name": "Premium Moist & Repair Shampoo"
+    },
+    {
+      "name": "Premium Moist & Repair Conditioner"
+    },
+    {
+      "name": "Premium Moist & Repair Treatment"
+    },
+    {
+      "name": "Premium Repair Shampoo"
+    },
+    {
+      "name": "Premium Repair Treatment"
+    },
+    {
+      "name": "Premium Volume & Repair Shampoo"
+    },
+    {
+      "name": "Premium Volume & Repair Conditioner"
+    },
+    {
+      "name": "Premium Volume & Repair Treatment"
+    },
+    {
+      "name": "Premium EX Intensive Repair Shampoo"
+    },
+    {
+      "name": "Premium EX Intensive Repair Treatment"
+    },
+    {
+      "name": "Premium EX Repair Mask"
+    },
+    {
+      "name": "Hair Oil Force"
+    },
+    {
+      "name": "Premium Hair Oil"
+    },
+    {
+      "name": "Hair Milk"
+    },
+    {
+      "name": "Hair Serum"
+    }
+  ]
+}
