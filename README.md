@@ -9,7 +9,7 @@ Site estático (HTML/CSS/JS puro), pensado para demonstração ao cliente via **
 
 ```
 index.html        → Página inicial (hero, marcas, categorias, sobre, contato)
-catalogo.html     → Catálogo completo com busca e filtros (marca + categoria)
+catalogo.html     → Catálogo completo com busca, filtros e sacola de pedido via WhatsApp
 imagens.html      → Página INTERNA: checklist das imagens de produto que faltam
 css/style.css     → Estilos (paleta extraída da logo: sage #A7A396 / cream #F4F0E3)
 js/products.js    → Base de dados dos produtos (marca, linha, categoria, nome)
@@ -45,6 +45,13 @@ Todos os produtos estão em `js/products.js`, no formato:
 
 Categorias usadas: Limpeza, Toner, Toner Pads, Sérum, Creme, Máscara, Olhos, Lábios,
 Proteção Solar, Mist, Tratamentos, Corpo & Banho, Cabelo, Perfumaria, Aparelhos, Kits.
+
+## Sacola / pedido por WhatsApp
+
+No catálogo, cada produto tem um botão **"Adicionar à sacola"** com controle de quantidade.
+O botão flutuante abre a sacola, e **"Enviar pedido pelo WhatsApp"** abre a conversa com a
+mensagem já montada (produtos + quantidades). A sacola fica salva no navegador do cliente
+(localStorage). O número está na constante `WHATSAPP` em `js/app.js`.
 
 ## Pendências / próximos passos
 

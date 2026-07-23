@@ -449,6 +449,218 @@ section { padding: 4.5rem 0; }
   font-weight: 300;
 }
 
+/* ---------- Sacola (carrinho) ---------- */
+.card-cart { margin-top: 0.8rem; }
+
+.add-btn {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--sage-deep);
+  background: transparent;
+  color: var(--sage-dark);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-btn:hover { background: var(--sage); border-color: var(--sage); color: var(--cream); }
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--sage);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--sage-mist);
+}
+
+.qty-stepper button {
+  width: 42px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--sage-dark);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.qty-stepper button:hover { background: var(--sage); color: var(--cream); }
+
+.qty-stepper span {
+  font-weight: 500;
+  color: var(--ink);
+  min-width: 2ch;
+  text-align: center;
+}
+
+#cart-fab {
+  position: fixed;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  z-index: 90;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: var(--sage-dark);
+  color: var(--cream);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(58, 56, 47, 0.35);
+  transition: transform 0.2s, background 0.2s;
+}
+
+#cart-fab:hover { transform: scale(1.07); background: var(--sage-deep); }
+
+.fab-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--sage-dark);
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--sage-dark);
+}
+
+#cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(58, 56, 47, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 95;
+}
+
+#cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(400px, 92vw);
+  background: var(--paper);
+  z-index: 100;
+  transform: translateX(105%);
+  transition: transform 0.28s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -12px 0 40px rgba(58, 56, 47, 0.2);
+}
+
+body.cart-open #cart-overlay { opacity: 1; pointer-events: auto; }
+body.cart-open #cart-drawer { transform: translateX(0); }
+
+.cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.4rem;
+  background: var(--sage);
+  color: var(--cream);
+}
+
+.cart-head h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+#cart-close {
+  border: none;
+  background: transparent;
+  color: var(--cream);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.4rem;
+}
+
+.cart-empty {
+  text-align: center;
+  color: var(--ink-soft);
+  font-weight: 300;
+  padding: 3rem 0.5rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--sage-mist);
+}
+
+.cart-item .ci-info { flex: 1; min-width: 0; }
+
+.cart-item .ci-brand {
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+}
+
+.cart-item .ci-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.cart-item .card-cart { margin: 0; flex: 0 0 118px; }
+
+.cart-foot {
+  padding: 1.1rem 1.4rem 1.4rem;
+  border-top: 1px solid var(--sage-mist);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.btn-whatsapp {
+  text-align: center;
+  background: #4caf6d;
+  border: 1px solid #4caf6d;
+  color: #fff;
+}
+
+.btn-whatsapp:hover { background: #3d9a5c; transform: translateY(-1px); }
+
+.btn-whatsapp.disabled { opacity: 0.45; pointer-events: none; }
+
+#cart-clear {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+
+#cart-clear:hover { color: var(--sage-dark); text-decoration: underline; }
+
 /* ---------- Sobre ---------- */
 .about {
   background: var(--sage);
