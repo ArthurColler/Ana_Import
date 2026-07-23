@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checklist de Imagens — Anava Importados (interno)</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-name">Anava</span>
+        <span class="brand-sub">Importados</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Início</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="imagens.html" class="active">Imagens (interno)</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="img-checklist">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Página interna — não divulgar</span>
+        <h2>Checklist de Imagens dos Produtos</h2>
+        <p>
+          Para cada produto, salve a foto como <strong>JPG quadrado</strong> (ideal: 800×800px)
+          na pasta <code>img/products/</code> com o nome de arquivo indicado abaixo.
+          A coluna "Status" mostra ✔ quando a imagem já existe no site.
+        </p>
+      </div>
+      <div class="result-count" id="img-count"></div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr><th>Marca</th><th>Produto</th><th>Arquivo esperado</th><th>Status</th></tr>
+          </thead>
+          <tbody id="img-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="foot-brand">Anava</div>
+    <div>Página interna de produção</div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script>
+    // Reaproveita o slugify do app.js (duplicado aqui para a página funcionar sozinha)
+    function slugify(brand, name) {
+      return (brand + " " + name)
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[%+&:().,'’]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    var tbody = document.getElementById("img-table");
+    var done = 0;
+    var total = PRODUCTS.length;
+
+    PRODUCTS.forEach(function (p) {
+      var slug = slugify(p[0], p[3]);
+      var file = "img/products/" + slug + ".jpg";
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + p[0] + "</td><td>" + p[3] + "</td><td><code>" + slug + ".jpg</code></td>" +
+        '<td class="status">—</td>';
+      tbody.appendChild(tr);
+
+      var probe = new Image();
+      probe.onload = function () {
+        var cell = tr.querySelector(".status");
+        cell.textContent = "✔";
+        cell.className = "status ok";
+        done++;
+        updateCount();
+      };
+      probe.src = file;
+    });
+
+    function updateCount() {
+      document.getElementById("img-count").textContent =
+        done + " de " + total + " imagens adicionadas";
+    }
+    updateCount();
+  </script>
+</body>
+</html>

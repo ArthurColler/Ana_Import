@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo — Anava Importados</title>
+  <meta name="description" content="Catálogo completo Anava Importados: skincare coreano, linha capilar e perfumaria importada." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-name">Anava</span>
+        <span class="brand-sub">Importados</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Início</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
+        <a href="index.html#sobre">Sobre</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Catálogo</span>
+        <h2>Nossos Produtos</h2>
+        <p>Use a busca e os filtros para encontrar o produto ideal. Consulte preços e disponibilidade pelo WhatsApp.</p>
+      </div>
+
+      <div class="catalog-controls">
+        <input type="search" id="filter-search" placeholder="Buscar produto, marca ou linha..." />
+        <select id="filter-brand">
+          <option value="todas">Todas as marcas</option>
+        </select>
+      </div>
+
+      <div class="chip-row" id="chip-row"></div>
+
+      <div class="result-count" id="result-count"></div>
+
+      <div class="product-grid" id="product-grid"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="foot-brand">Anava</div>
+    <div>Importados &copy; 2026 — Todos os direitos reservados</div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
